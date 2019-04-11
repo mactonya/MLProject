@@ -1,6 +1,17 @@
 import player
 import time
 
-foo = player.Player("Gon") 
 
-print(foo)
+
+
+# Start Initializing
+#	-> Add players
+# Stop at input
+# Output choices
+# Input 
+#
+#
+#
+#
+#
+#
