@@ -1,30 +1,27 @@
 import player
+import dialog
+'''
+All four players are initialized and ready to play
 
-# Start Initializing
-#	- Players: Add players, choose colors
-#	- Init all objects
-#	- (Choose characters)
-#Loop for x rounds:
-#	Stage 1: Information
-#		- Dices: (Roll new dices)
-#		- Shuffle_piles->Player: Distribute Company / Forecast cards
-#	Stage 2: Supply
-#		- Main_pile->Player: Deal 2 cards for each player
-#		- Board<-Player: Place stock cards
-#		- Board/Player/Commercial: (Deal commercials and place them)
-#	Stage 3: Demand
-#		- Board<-Player: Loop the bid process
-#		- Board->Player: After bid, collect cards and take fees
-#	Stage 4: Action
-#		- Board<-Player: Do +2/-2s
-#		- Board->player: Doubling and bankrupting
-#		- (Character actions)
-#	Stage 5: Sell
-#		- Player: Sell
-#	Stage 6: Movement
-#		- Player/Shuffle_piles: Show all cards
-#		- Board<-Player/Shuffle_piles: Move
-#		- Board->player: Doubling and bankrupting
-#		- Shuffle_piles->player: $$ing
-#		- Board: Advance to next round
-#	End of game: convert everyting into money
+	Loop the following:
+	- (Shuffle players so we get a new sequence)
+	- Player X choose an action
+		- Check if that action is possible
+	- Then choose a color combination
+	- Choose the card to give, if needed
+	- Call the function to do action
+		- If it is a guessing, do the judge:
+			- An successful attempt will end the round
+			- An unsuccessful attemp will stop the player from any action afterwards
+	- Return the results
+	- Goto next player
+
+End the game after one earns 9 points
+'''
+
+dialog.start_game()
+player.new_round()
+for i in range(0,4):
+	dialog.print_deck(player.players[i].hand)
+
+dialog.current_status(player.players[i])
