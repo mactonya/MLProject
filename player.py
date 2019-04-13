@@ -9,53 +9,52 @@ class Player(object):
 		self.is_banned = False		# If allowed to do a move
 		self.is_followed = False	# If followed
 
-	def give_A_ask_B (self, choose_color, return_color, receiver):
-		"""Give <receiver> a Card <choose_color>, return how many <return_color> does <receiver> have
-		- choose_color: a Card
+	def give_A_ask_B (self, sent_card, return_color, receiver):
+		"""Give <receiver> a <sent_card>, return how many <return_color> does <receiver> have
+		- sent_card: a Card (guranteed to exist by init)
 		- return_color: a color
 		- receiver: a Player
 		"""
+		self.hand.transfer(receiver.hand, sent_card)
+		return receiver.hand.color_count(return_color)
 
-	def give_A_return_B (self, choose_color, return_color, receiver):
+
+
+
+	def give_A_return_B (self, sent_card, return_color, receiver):
 		"""Give <receiver> a Card <choose_color>, then <receiver> gives all <return_color> Card
-		- choose_color: a Card
+		- sent_card: a Card (guranteed to exist by init)
 		- return_color: a color
 		- receiver: a Player
 		"""
 
 	def give_AB(self, choose_color, receiver):
+		"""Choose a color pair <choose_color>; <receiver> must give one <choose_color[0]> and/or <choose_color[1]> colored Card
+		- choose_color: a color pair
+		- receiver: a Player
+		"""
 
-		# choose_color is a str, must be vaild
-		A = choose_color[0]
-		B = choose_color[1]
-		# If there is a multiple of cards A/B:
-		#	> Send a signal to frontend 
-		#	> wait for sendback
-		# Continue
-
-		# Cards is the sum of two results
-		self.hand.transer(receiver.hand, cards)
 
 	def give_all_AB(self, choose_color, receiver):
+		"""Choose a color pair <choose_color>; <receiver> must give all of <choose_color[0]> or <choose_color[1]> colored Card
+		- choose_color: a color pair
+		- receiver: a Player
+		"""
 
-		# choose_color is a str, must be vaild
-		A = choose_color[0]
-		B = choose_color[1]
-		# Ask back whether receiver wants to send A or B, if possible:
-		#	> Send a signal to frontend 
-		#	> wait for sendback
-		# Continue
-
-		# Cards is the results
 		self.hand.transer(receiver.hand, cards)
 
 	def guess(self, guess, answer):
-		return (guess_color == answer or guess_color == answer[::-1])
-
+		"""Guess the answer"""
 
 class Deck():
 	def __init__ (self, cards = []):	
 		self.cards = cards
+	def __iter__(self):	
+		""" Return the iterator of card list """
+		return iter(self.cards)
+	def __getitem__(self, key):
+		return self.cards[key]
+
 	def remove(self, cards):
 		"""Remove a card"""
 		if isinstance(cards, list):
@@ -73,12 +72,17 @@ class Deck():
 		"""Transfer cards to other"""
 		self.remove(cards)
 		other.add(cards)
+
 	def card_list(self):	
 		"""Return the card list"""
 		return [card.give_card() for card in self]
-	def __iter__(self):	
-		""" Return the iterator of card list """
-		return iter(self.cards)
+	
+	def card_count(self):
+		i = 0
+		for card in self:
+			i += 1
+		return i
+
 	def color_count(self, color): 
 		""" Count how many <color> cards are in list """
 		color_num = 0
@@ -93,8 +97,9 @@ class Deck():
 			if card.color == color:
 				color_deck.append(card)
 		return color_deck
+	
 	def renew(self):				
-		""" Renew a new global deck """
+		"""Remove all items in deck"""
 		for item in self:
 			self.remove(item)
 
