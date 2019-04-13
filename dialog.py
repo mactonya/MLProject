@@ -12,7 +12,7 @@ unzip_color = {'B':'BLUE', 'G':'GREEN', 'Y':'YELLOW', 'R':'RED'}
 def start_game():
 	"""Starting a new game, entering initials"""
 	print("Enter your name: ", end = '')
-	#x = str(input())
+	#x = input()
 	#print("Hello, " + x + "!" )
 	time.sleep(1)
 
@@ -44,18 +44,15 @@ def enter_options():
 	print("3: Take one of A and/or B")
 	print("4: Take all of A or B")
 	print("5: Guess the answer")
-	print("Your choice: ", end = '')
-	return input()
+	return input("Your choice: ")
 
 def enter_color():
 	"""To choose a color pair"""
-	print("Enter a color pair: ", end = '')
-	return input()
+	return input('Enter a color pair: ')
 
 def enter_player():
 	"""To choose a player"""
-	print("Enter the player name who you would like to request: ", end = '')
-	return input()
+	return input("Enter the player name who you would like to request: ")
 
 def error(err_code = ''):
 	"""Something unexcepted happened"""
@@ -65,9 +62,23 @@ def choose_card(Deck):
 	"""Choose a card to discard; used in case 1 & 2"""
 	print("Choose a card to discard: ")
 	print_deck(Deck)
-	print("Your choice: ", end = '')
-	return input()
+	return input("Your choice: ")
 
-def return_result(FORMAT):
-	if FORMAT[0] == 1:
-		print(FORMAT[1] + ' has ' + FORMAT[3] + ' ' + colorize[FORMAT[2]] + unzip_color[FORMAT[2]] + Back.BLACK + ' cards.')
+def player_list(exclude = []):
+	"""Print a player list excluding <exclude>"""
+
+
+def return_result(code, FORMAT):
+	"""Print the query result
+	FORMAT = (The target player, The target color, # of given cards/ list of given cards)
+	"""
+	if code == 1:
+		print(FORMAT[0] + ' has ' + str(FORMAT[2])+ ' ' + colorize[FORMAT[1]] + unzip_color[FORMAT[1]] + Back.BLACK + ' cards.')
+	elif code == 2:
+		print(FORMAT[0] + ' gives you ' + str(FORMAT[2][0])+ ' ' + colorize[FORMAT[1]] + unzip_color[FORMAT[1]] + Back.BLACK + ' cards:')
+		print_deck(FORMAT[2][1])
+	elif code == 5:
+		if FORMAT[2] == True:
+			print(FORMAT[0].name + ' has guess the correct answer: ' + FORMAT[1] + '!')
+		else:
+			print(FORMAT[0].name + ' has guess the wrong answer: ' + FORMAT[1] + '.')

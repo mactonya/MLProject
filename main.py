@@ -22,7 +22,7 @@ End the game after one earns 9 points
 
 # dialog.start_game()
 init.new_round()
-dialog.print_deck(init.players[0].hand)
-X = init.option_choser(init.players[0], dialog.enter_options(), dialog.enter_color(), dialog.enter_player())
+dialog.print_deck(init.players['A'].hand)
+(X, FORMAT) = init.option_choser(init.players['A'], dialog.enter_options(), dialog.enter_color())
 if X != -1:
-	dialog.return_result(X)
+	dialog.return_result(X, FORMAT)

@@ -8,25 +8,25 @@ class Player(object):
 		self.points = 0				# Points
 		self.is_banned = False		# If allowed to do a move
 		self.is_followed = False	# If followed
-
 	def give_A_ask_B (self, sent_card, return_color, receiver):
 		"""Give <receiver> a <sent_card>, return how many <return_color> does <receiver> have
 		- sent_card: a Card (guranteed to exist by init)
 		- return_color: a color
 		- receiver: a Player
 		"""
-		self.hand.transfer(receiver.hand, sent_card)
+		self.hand.transfer(receiver.hand, Deck(sent_card))
 		return receiver.hand.color_count(return_color)
-
-
-
-
 	def give_A_return_B (self, sent_card, return_color, receiver):
 		"""Give <receiver> a Card <choose_color>, then <receiver> gives all <return_color> Card
 		- sent_card: a Card (guranteed to exist by init)
 		- return_color: a color
 		- receiver: a Player
 		"""
+		self.hand.transfer(receiver.hand, Deck(sent_card))
+		X = Deck(receiver.hand.color_card(return_color))
+		if X.card_count != 0:
+			receiver.hand.transfer(self.hand, X)
+		return (X.card_count(), X)
 
 	def give_AB(self, choose_color, receiver):
 		"""Choose a color pair <choose_color>; <receiver> must give one <choose_color[0]> and/or <choose_color[1]> colored Card
@@ -45,31 +45,43 @@ class Player(object):
 
 	def guess(self, guess, answer):
 		"""Guess the answer"""
+		if (guess == answer or guess == answer[::-1]):
+			self.points += 3
+			return True
+		else:
+			self.is_banned = True
+			return False
+
 
 class Deck():
-	def __init__ (self, cards = []):	
-		self.cards = cards
+	def __init__ (self, cards = []):
+		self.cards = []
+		if isinstance(cards, Card):
+			self.cards.append(cards)
+		else:
+			self.cards.extend(cards)
 	def __iter__(self):	
-		""" Return the iterator of card list """
 		return iter(self.cards)
 	def __getitem__(self, key):
 		return self.cards[key]
+	def __add__(self, other):
+		return self.cards.extend(other)
 
 	def remove(self, cards):
-		"""Remove a card"""
-		if isinstance(cards, list):
+		"""Remove a card FROM SELF"""
+		if isinstance(cards, Deck):
 			for card in cards:
 				self.cards.remove(card)
 		else:
 			self.cards.remove(cards)
 	def add(self, cards):
 		"""Add a card"""
-		if isinstance(cards, list):
+		if isinstance(cards, Deck):
 			self.cards += cards
 		else:
 			self.cards.append(cards)
 	def transfer(self, other, cards):
-		"""Transfer cards to other"""
+		"""Transfer SELF's cards to other"""
 		self.remove(cards)
 		other.add(cards)
 
@@ -78,10 +90,7 @@ class Deck():
 		return [card.give_card() for card in self]
 	
 	def card_count(self):
-		i = 0
-		for card in self:
-			i += 1
-		return i
+		return len(self.cards)
 
 	def color_count(self, color): 
 		""" Count how many <color> cards are in list """
@@ -93,6 +102,8 @@ class Deck():
 	def color_card(self, color):  
 		""" Return what are <color> cards """
 		color_deck = []
+		if self == Deck():
+			return color_deck
 		for card in self:
 			if card.color == color:
 				color_deck.append(card)
@@ -100,8 +111,7 @@ class Deck():
 	
 	def renew(self):				
 		"""Remove all items in deck"""
-		for item in self:
-			self.remove(item)
+		self.cards = []
 
 class Card():
 	def __init__ (self, color, ID, name):
