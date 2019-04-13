@@ -1,4 +1,5 @@
 import player
+import init
 import dialog
 '''
 All four players are initialized and ready to play
@@ -19,9 +20,9 @@ All four players are initialized and ready to play
 End the game after one earns 9 points
 '''
 
-dialog.start_game()
-player.new_round()
-for i in range(0,4):
-	dialog.print_deck(player.players[i].hand)
+# dialog.start_game()
+init.new_round()
+dialog.print_deck(init.players[0])
+while init.option_choser(dialog.enter_options(), dialog.enter_color()) == -1:
+	dialog.error()
 
-dialog.current_status(player.players[i])

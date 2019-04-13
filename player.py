@@ -1,35 +1,27 @@
-import random
-	
+"""Stores basic objects"""
+
 class Player(object):
-	def __init__ (self, name, color):
+	def __init__ (self, name, color, hand = []):
 		self.name = name			# Name
-		#self.hand = hand			# Hand, a list
+		self.hand = hand			# Hand, a list
 		self.color = color			# Pos	 
 		self.points = 0				# Points
 		self.is_banned = False		# If allowed to do a move
 		self.is_followed = False	# If followed
-	def give_A_ask_B (self, choose_color, given_card, receiver):
-		
-		if choose_color == "same":
-			choose_color = given_card.color + given_card.color
 
-		# choose_color is a 2-char str, must be vaild
-		A = given_card.color
-		B = choose_color.replace(A, "")
+	def give_A_ask_B (self, choose_color, return_color, receiver):
+		"""Give <receiver> a Card <choose_color>, return how many <return_color> does <receiver> have
+		- choose_color: a Card
+		- return_color: a color
+		- receiver: a Player
+		"""
 
-		return receiver.hand.color_count(B)
-
-	def give_A_return_B (self, choose_color, given_card, receiver):
-		
-		if choose_color == "same":
-			choose_color = given_card.color + given_card.color
-
-
-		A = given_card.color
-		B = choose_color.replace(A, "")
-
-		cards = receiver.hand.color_card(B)
-		self.hand.transer(receiver.hand, cards)
+	def give_A_return_B (self, choose_color, return_color, receiver):
+		"""Give <receiver> a Card <choose_color>, then <receiver> gives all <return_color> Card
+		- choose_color: a Card
+		- return_color: a color
+		- receiver: a Player
+		"""
 
 	def give_AB(self, choose_color, receiver):
 
@@ -57,7 +49,7 @@ class Player(object):
 		# Cards is the results
 		self.hand.transer(receiver.hand, cards)
 
-	def guess(self, guess_color):
+	def guess(self, guess, answer):
 		return (guess_color == answer or guess_color == answer[::-1])
 
 
@@ -111,53 +103,10 @@ class Card():
 		self.color = color
 		self.ID = ID
 		self.name = name
-	#def __hash__(self):
-	#	return self.ID
 	def give_card(self):
 		"""Retrun the tuple (Name, ID, Color)"""
 		return (self.name, str(self.ID), self.color)
 
-def new_round():
-	"""To open a new round"""
-	global_deck.renew()
-	new_deck()
-	# Distribute cards
-	for player in players:
-		hand = random.sample(global_deck.cards, k = 12//(player_num))
-		global_deck.remove(hand)
-		player.hand = Deck(hand)
-	# The solution
-	return global_deck.cards[0].color + global_deck.cards[1].color
-
-
-
-# Start initialize
-global_deck = Deck()
-def new_deck():
-	global_deck.add(Card('B', 1, "Water"))
-	global_deck.add(Card('B', 2, "Water"))
-	global_deck.add(Card('B', 3, "Water"))
-	global_deck.add(Card('B', 4, "Water"))
-	global_deck.add(Card('B', 5, "Water"))
-	global_deck.add(Card('G', 6, "Chimaphila"))
-	global_deck.add(Card('G', 7, "Agathosma"))
-	global_deck.add(Card('G', 8, "Polygonatum"))
-	global_deck.add(Card('G', 9, "Crateva"))
-	global_deck.add(Card('Y', 10, "Agathosma"))
-	global_deck.add(Card('Y', 11, "Polygonatum"))
-	global_deck.add(Card('Y', 12, "Crateva"))
-	global_deck.add(Card('R', 13, "Rehmannia"))
-	global_deck.add(Card('R', 14, "Krameria"))
-
-player_num = 4
-players = []
-player_color = ["Brown", "Blue", "Red", "Green"]
-# Give player names and color
-for i in range(player_num):
-	player = Player(str(i), player_color[i])
-	players.append(player)
-
-# Finishing initialization
 
 
 
