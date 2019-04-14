@@ -44,7 +44,6 @@ def next_player(player):
 		return player_name[player_name.index(player) + 1]
 
 
-
 def new_round():
 	"""To open a new round"""
 	global_deck.renew()

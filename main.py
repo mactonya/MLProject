@@ -8,16 +8,16 @@ All four players are mediumialized and ready to play
 
 	Loop the following:
 	- (Shuffle players so we get a new sequence)
-	- Player X choose an action
-		- Check if that action is possible
+	V Player X choose an action
+		V Check if that action is possible
 	v Then choose a color combination
 	v Choose the card to give, if needed
-	- Call the function to do action
-		- If it is a guessing, do the judge:
-			- An successful attempt will end the round
-			- An unsuccessful attemp will stop the player from any action afterwards
-	- Return the results
-	- Goto next player
+	V Call the function to do action
+		V If it is a guessing, do the judge:
+			V An successful attempt will end the round
+			V An unsuccessful attemp will stop the player from any action afterwards
+	V Return the results
+	V Goto next player
 
 End the game after one earns 9 points
 '''
