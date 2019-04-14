@@ -4,10 +4,10 @@ class Player(object):
 	def __init__ (self, name, color, hand = []):
 		self.name = name			# Name
 		self.hand = hand			# Hand, a list
-		self.color = color			# Pos	 
+		#self.color = color			# Pos	 
 		self.points = 0				# Points
 		self.is_banned = False		# If allowed to do a move
-		self.is_followed = False	# If followed
+		#self.is_followed = False	# If followed
 	def give_A_ask_B (self, sent_card, return_color, receiver):
 		"""Give <receiver> a <sent_card>, return how many <return_color> does <receiver> have
 		- sent_card: a Card (guranteed to exist by init)
@@ -26,22 +26,12 @@ class Player(object):
 		X = Deck(receiver.hand.color_card(return_color))
 		if X.card_count != 0:
 			receiver.hand.transfer(self.hand, X)
-		return (X.card_count(), X)
+		return X.card_count()
 
-	def give_AB(self, choose_color, receiver):
-		"""Choose a color pair <choose_color>; <receiver> must give one <choose_color[0]> and/or <choose_color[1]> colored Card
-		- choose_color: a color pair
-		- receiver: a Player
-		"""
+	def give_AB(self, choosed_cards, receiver):
 
-
-	def give_all_AB(self, choose_color, receiver):
-		"""Choose a color pair <choose_color>; <receiver> must give all of <choose_color[0]> or <choose_color[1]> colored Card
-		- choose_color: a color pair
-		- receiver: a Player
-		"""
-
-		self.hand.transer(receiver.hand, cards)
+		choosed_cards = Deck(choosed_cards)
+		self.hand.transfer(receiver.hand, choosed_cards)
 
 	def guess(self, guess, answer):
 		"""Guess the answer"""

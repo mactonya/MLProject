@@ -25,7 +25,7 @@
     <Compile Include="dialog.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="init.py">
+    <Compile Include="medium.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
