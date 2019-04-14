@@ -18,7 +18,7 @@ We will pick the game **"本草"** (Herbalism) as our midterm project. For the d
 
 Clone the project and execute
 
-`python main`
+`python main.py`
 
 in the downloaded folder.
 
