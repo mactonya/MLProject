@@ -36,4 +36,4 @@ https://www.youtube.com/watch?v=GzBc5l3bWyM
 
 There is no definite schedule because my time is f\*cked.
 
-There is no progress.
+There is no progres (as of 5/24).
