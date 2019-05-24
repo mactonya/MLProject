@@ -32,6 +32,8 @@ We wish to take some already made Tetris bot and modify it to make a bot that ca
 
 https://www.youtube.com/watch?v=GzBc5l3bWyM
 
-# Schedule
+# Schedule / Progress
 
 There is no definite schedule because my time is f\*cked.
+
+There is no progress.
