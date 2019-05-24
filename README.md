@@ -16,12 +16,12 @@ We will pick the game **"本草"** (Herbalism) as our midterm project. For the d
 
 # How to play
 
-Clone the project and execute
+Clone the project and execute `python main.py` in the downloaded folder.
 
-`python main.py`
+# Final Project
 
-in the downloaded folder.
+**This is a solo project.**
 
-# Bug Report
+As mentioned above, we want to train an Reinforced NN to Optimize the # of moves needed to guess the correct answer. 
 
-Open an issue.
+**If time is strict(or too much techinical difficulties happened), the following will be done instead of the above project:**
