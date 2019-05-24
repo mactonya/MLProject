@@ -25,3 +25,13 @@ Clone the project and execute `python main.py` in the downloaded folder.
 As mentioned above, we want to train an Reinforced NN to Optimize the # of moves needed to guess the correct answer. 
 
 **If time is strict(or too much techinical difficulties happened), the following will be done instead of the above project:**
+
+## Tetris Bot
+
+We wish to take some already made Tetris bot and modify it to make a bot that can play a game of Tetris The Grandmaster:
+
+https://www.youtube.com/watch?v=GzBc5l3bWyM
+
+# Schedule
+
+There is no definite schedule because my time is f\*cked.
